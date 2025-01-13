@@ -69,6 +69,7 @@ export const usePlayerStore = defineStore('player', () => {
     checkSupport()
     if (hasVoices.value && initComplete.value) return
 
+    resetState()
     setVoices(await loadVoices())
     generatePitchRange()
     initComplete.value = true
@@ -147,13 +148,12 @@ export const usePlayerStore = defineStore('player', () => {
     new Promise((resolve, reject) => {
       try {
         if (utterance.value) {
-          utterance.value = null
           synth.cancel()
         }
 
         let { text } = playerState
         if (currentWordIndex.value) text = text.substring(currentWordIndex.value)
-        utterance.value = new SpeechSynthesisUtterance(text)
+        utterance.value = new SpeechSynthesisUtterance()
         if (selectedVoice.value) {
           utterance.value.voice = selectedVoice.value
           utterance.value.lang = selectedVoice.value.lang
@@ -197,7 +197,7 @@ export const usePlayerStore = defineStore('player', () => {
   async function toggleSpeak() {
     updatePlayerState('isLoading', true)
     const _utterance = await createUtterance()
-    synth.speak(_utterance as SpeechSynthesisUtterance)
+    window.speechSynthesis.speak(_utterance as SpeechSynthesisUtterance)
     hasError.value = false
     blockUtteranceUpdates.value = true
   }
@@ -241,13 +241,6 @@ export const usePlayerStore = defineStore('player', () => {
 
   const words = computed(() => playerState.text.split(' '))
 
-  watch(hasError, async (value) => {
-    if (value) {
-      resetState()
-      await initializeSynth()
-      return toggleSpeak()
-    }
-  })
 
   watch(utterance, (context) => {
     if (!context) return
@@ -267,6 +260,7 @@ export const usePlayerStore = defineStore('player', () => {
     }
 
     context.onerror = (event) => {
+      console.log(event)
       hasError.value = true
     }
 
