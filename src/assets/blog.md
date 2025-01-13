@@ -237,7 +237,7 @@ There's much to cover when doing TTS, but some of these enhancements are worth c
    - The `onboundary` event is a bit buggy, where the currentWord index might be ahead of the speech.
 6. Use [SSML](https://www.w3.org/TR/speech-synthesis11/#S1):
    - Speech Synthesis Markup Language specification (SSML) is an XML-Based markup language that assists in generating natural-sounding speech.
-   - SSML empowers you to go beyond simply converting text to speech. It has enough markup for voice control including prosody, speech control and emphasis.
+   - SSML empowers you to go beyond simply converting text to speech. It has enough markup for voice control including prosody, speech control, and emphasis.
    - For example: Using word censors, the following example will have a beep sound.
    ```xml
    <speak>
@@ -255,4 +255,4 @@ To read more:
 - [W3C spec speech API](https://webaudio.github.io/web-speech-api/).
 - [SSML](https://cloud.google.com/text-to-speech/docs/ssml).
 
-Checkout the TTS version of this blog  [here](https://github.com/ridge-kimani/speech-synthesis-demo).
+Check out the TTS version of this blog  [here](https://github.com/ridge-kimani/speech-synthesis-demo).
