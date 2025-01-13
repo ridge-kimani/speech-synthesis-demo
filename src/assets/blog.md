@@ -2,7 +2,7 @@
 
 ### Introduction
 
-- Most of us have at least watched an old sci-fi movie(or recent) that has computer/robotic voices. With time, these voices and illustrations have gotten better, by sounding human-like.
+- Most of us have at least watched an old sci-fi movie(or recent) that has computer/robotic voices. With time, these voices and illustrations have improved, by sounding human-like.
 - Modern browsers can now incorporate voice data into web applications.
 - This was made possible using the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
   which works by providing an interface to do [Speech Recognition](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition),
@@ -185,6 +185,7 @@ The Speech Synthesis API consists of the following interfaces-
 
 
 ### Browser Compatibility
+
 It currently [supports](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis#browser_compatibility) common browsers like Chrome, Safari, Firefox, and Edge.
 
 To ensure that it loads correctly, check if the user's browser supports it
@@ -204,6 +205,7 @@ Key limitations to consider:
 
 
 ### Security Considerations
+
 1. User Permissions:
     - Some browsers require user interaction before allowing speech synthesis.
     - Implement a user activation check before speaking.
@@ -222,7 +224,9 @@ Key limitations to consider:
     - Clear utterances after use.
     - Implement proper cleanup in component lifecycle methods.
 
-### Bonuses for a prod-ready app
+### What to do next
+
+There's much to cover when doing TTS, but some of these enhancements are worth considering when working on prod-ready app. 
 1. Voice Preference Persistence: Save and apply user voice preferences using localStorage.
 2. Progressive Enhancement: Provide fallbacks and recommendations for unsupported browsers.
 3. Accessibility Considerations: Improve usability for all users with ARIA roles, keyboard navigation, and visual feedback.
@@ -231,12 +235,24 @@ Key limitations to consider:
    - As you've seen above, there are instances where the browser doesn't update the internal state. Therefore, manually adding these event listeners might help to mitigate such issues.
    - One other issue I found was updating utterances while speech in progress results to an error.
    - The `onboundary` event is a bit buggy, where the currentWord index might be ahead of the speech.
+6. Use [SSML](https://www.w3.org/TR/speech-synthesis11/#S1):
+   - Speech Synthesis Markup Language specification (SSML) is an XML-Based markup language that assists in generating natural-sounding speech.
+   - SSML empowers you to go beyond simply converting text to speech. It has enough markup for voice control including prosody, speech control and emphasis.
+   - For example: Using word censors, the following example will have a beep sound.
+   ```xml
+   <speak>
+     <say-as interpret-as="expletive">censor this</say-as>
+   </speak>
+   ```
 
 
 ### Conclusion
+
 Browser-based speech synthesis represents an opportunity to enhance your digital presence and experience while maintaining
 cost-effectiveness and technical simplicity. 
 
-To read more: [W3C spec](https://webaudio.github.io/web-speech-api/)
+To read more: 
+- [W3C spec speech API](https://webaudio.github.io/web-speech-api/).
+- [SSML](https://cloud.google.com/text-to-speech/docs/ssml).
 
-Implementation example: [Github](https://github.com/ridge-kimani/speech-synthesis-demo)
+Checkout the TTS version of this blog  [here](https://github.com/ridge-kimani/speech-synthesis-demo).
